@@ -1,0 +1,17 @@
+FROM bict/apc-module-base
+
+WORKDIR /app
+
+# 최소 의존성 설치 (dev 제외)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    liblz4-dev
+
+COPY pyproject.toml poetry.lock* ./
+RUN poetry config virtualenvs.create false && \
+    poetry install --only main --no-root
+
+# 소스 및 모델만 복사
+COPY ./src ./src
+
+EXPOSE 8000
+CMD ["uvicorn", "src.apc_module.main:app", "--host", "0.0.0.0", "--port", "8000"]
