@@ -1,0 +1,12 @@
+services:
+  app:
+    image: bict/apc-module
+    shm_size: '10gb'
+    ports:
+      - "8000:8000"
+    environment:
+      # Values
+      - SOCKET_SERVER_URL=http://human-detect-module:8000/ws
+      - KAFKA_BOOTSTRAP=localhost:1664
+    command: >
+      uvicorn src.apc_module.main:app --host 0.0.0.0 --port 8000

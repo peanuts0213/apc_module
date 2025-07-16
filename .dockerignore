@@ -1,0 +1,7 @@
+# 캐시/임시 파일
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.log
